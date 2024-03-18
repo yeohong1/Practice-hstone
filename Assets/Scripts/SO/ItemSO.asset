@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29dba85764931b46a9d728468b14d35, type: 3}
+  m_Name: ItemSO
+  m_EditorClassIdentifier: 
+  items:
+  - name: name1
+    sttack: 2
+    health: 5
+    Sprite: {fileID: 21300000, guid: 22584a69b05b9eb4d8a0805a92fe2edf, type: 3}
+    percent: 12
+  - name: name2
+    sttack: 1
+    health: 7
+    Sprite: {fileID: 21300000, guid: e3a7ca91172354d4eabf67a0aa526c2b, type: 3}
+    percent: 10
+  - name: name3
+    sttack: 3
+    health: 4
+    Sprite: {fileID: 21300000, guid: 2b21d6589bef104439e8242cacd0bef9, type: 3}
+    percent: 11
+  - name: name4
+    sttack: 5
+    health: 6
+    Sprite: {fileID: 21300000, guid: 36a04f513f3c17346b0ac541d7784cbf, type: 3}
+    percent: 5
+  - name: name5
+    sttack: 7
+    health: 8
+    Sprite: {fileID: 21300000, guid: 28cd61756f0275242ad339861587ca9f, type: 3}
+    percent: 16
+  - name: name6
+    sttack: 13
+    health: 13
+    Sprite: {fileID: 21300000, guid: 01797d7245235cf40bb99200cb56cb00, type: 3}
+    percent: 13
+  - name: name7
+    sttack: 11
+    health: 11
+    Sprite: {fileID: 21300000, guid: f42cee5a46221c540b0f061de622f4c9, type: 3}
+    percent: 11
+  - name: name
+    sttack: 8
+    health: 11
+    Sprite: {fileID: 21300000, guid: b0957691df7e549459e396763fc1fbfb, type: 3}
+    percent: 7
+  - name: name9
+    sttack: 4
+    health: 5
+    Sprite: {fileID: 21300000, guid: f27d96c4f7720184497cc8946d2063c5, type: 3}
+    percent: 6
+  - name: name10
+    sttack: 8
+    health: 6
+    Sprite: {fileID: 21300000, guid: c2b3cd746b89013479f94e33df9cd8ae, type: 3}
+    percent: 5
+  - name: name11
+    sttack: 5
+    health: 7
+    Sprite: {fileID: 21300000, guid: d86eb39f82ab5314690641b58dc92a8e, type: 3}
+    percent: 9
+  - name: name12
+    sttack: 7
+    health: 8
+    Sprite: {fileID: 21300000, guid: e756cd30fba6d01409c2010f9101cc9d, type: 3}
+    percent: 7
