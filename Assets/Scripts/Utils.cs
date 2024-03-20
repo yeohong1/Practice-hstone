@@ -20,4 +20,14 @@ public class PRS//positon, rotation, scale을 담는 클래스
 public class Utils : MonoBehaviour
 {
     public static Quaternion QI => Quaternion.identity;
+
+    public static Vector3 MousePos
+    {
+        get
+        {
+            Vector3 result = Camera.main.ScreenToWorldPoint(Input.mousePosition);//마우스 포지션을 WorldPoint로 변환
+            result.z = -10;//카메라 z=-100으로 설정했기 때문에 -10으로 설정
+            return result;
+        }
+    }
 }

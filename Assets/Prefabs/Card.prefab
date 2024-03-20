@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2837229496983084682}
   - component: {fileID: 5517686614092450917}
   - component: {fileID: 1082963823303586104}
+  - component: {fileID: 94080531745133000}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -139,6 +140,57 @@ MonoBehaviour:
   - {fileID: 6862539405065065019}
   - {fileID: 6397629122004181168}
   sortingLayerName: Card
+--- !u!60 &94080531745133000
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489957097025548713}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.9375, y: 3.875}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.46875, y: 1.9375}
+      - {x: -1.46875, y: -1.9375}
+      - {x: -1.1090043, y: -2.4179606}
+      - {x: -1.0795355, y: -3.065281}
+      - {x: 1.46875, y: -1.9375}
+      - {x: 1.46875, y: 1.9375}
+  m_UseDelaunayMesh: 0
 --- !u!1 &2174815879387063671
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +248,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4926908325646249455, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
+  - {fileID: 2100000, guid: dee42e9d5282ee54b9ad7c70e87bceaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,7 +293,7 @@ MonoBehaviour:
   m_text: "\uC774\uB984"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
-  m_sharedMaterial: {fileID: 4926908325646249455, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: dee42e9d5282ee54b9ad7c70e87bceaf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -367,7 +419,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4926908325646249455, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
+  - {fileID: 2100000, guid: dee42e9d5282ee54b9ad7c70e87bceaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -412,7 +464,7 @@ MonoBehaviour:
   m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
-  m_sharedMaterial: {fileID: 4926908325646249455, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: dee42e9d5282ee54b9ad7c70e87bceaf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -538,7 +590,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4926908325646249455, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
+  - {fileID: 2100000, guid: dee42e9d5282ee54b9ad7c70e87bceaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -583,7 +635,7 @@ MonoBehaviour:
   m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
-  m_sharedMaterial: {fileID: 4926908325646249455, guid: 9bc4c42cb6e731443929fe243e1d7271, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: dee42e9d5282ee54b9ad7c70e87bceaf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
