@@ -66,8 +66,8 @@ public class Card : MonoBehaviour
       {
          character.sprite = this.item.Sprite;
          nameTMP.text = this.item.name;
-         attackTMP.text = this.item.sttack.ToString();
-         attackTMP.text = this.item.sttack.ToString();
+         attackTMP.text = this.item.attack.ToString();
+         healthTMP.text = this.item.health.ToString();
       }
       else
       {

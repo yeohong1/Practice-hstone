@@ -41,7 +41,10 @@ public class GameManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Alpha3))//3를 누르면
             TurnManager.Inst.EndTurn(); //턴 바뀜
-      
+
+        if (Input.GetKeyDown(KeyCode.Alpha4)) //4를 누르면
+            CardManager.Inst.TryPutCard(false);//상대를 강제로 카드를 내게 함
+
     }
 
     public void StartGame()

@@ -7,7 +7,7 @@ using UnityEngine;
 public class Item
 {
     public string name;
-    public int sttack;
+    public int attack;
     public int health;
     public Sprite Sprite;
     public float percent;

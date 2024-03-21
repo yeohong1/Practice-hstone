@@ -22,6 +22,9 @@ public class TurnManager : MonoBehaviour
    private WaitForSeconds delay07 = new WaitForSeconds(0.7f);
 
    public static Action<bool> OnAddCard;//델리게이트 이벤트 타입, 카드가 추가될 때 호출될 콜백(이벤트 핸들러)을 나타냄
+   public static event Action<bool> OnTurnStarted;//_isMine이 들어감 
+   
+   
    
    #region Events
    private void Awake()
@@ -52,10 +55,11 @@ public class TurnManager : MonoBehaviour
       }
    }
 
+   //카드배분
    public IEnumerator StartGameCo()
    {
       GameSetup();//게임 순서 정함
-      isLoading = true;//턴 시작 될 시 
+      isLoading = true;//카드 클릭방지
 
       for (int i = 0; i < startCardCont; i++)//시작 카드개수 만큼 반복
       {
@@ -71,7 +75,7 @@ public class TurnManager : MonoBehaviour
    //턴이 시작될 시 카드 1장 추가 위함
    IEnumerator StartTurnCo()
    {
-      isLoading = true;
+      isLoading = true;//카드 클릭방지
       
       if(myTurn)
          GameManager.Inst.Notification("My Turn");//GameManager 함수 Notification에 메세지 전달
@@ -80,6 +84,7 @@ public class TurnManager : MonoBehaviour
       OnAddCard?.Invoke(myTurn);//만약 내 턴이면 나한테 카드 1개 추가, 아니면 상대한테 카드 1개 추가
       yield return delay07;
       isLoading = false;
+      OnTurnStarted?.Invoke(myTurn);
    }
 
    //턴 넘기기 위함

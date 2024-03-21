@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,6 +16,7 @@ public class CardManager : MonoBehaviour
    [SerializeField] private List<Card> myCards;
    [SerializeField] private List<Card> otherCards;
    [SerializeField] private Transform cardSpawnPoint;
+   [SerializeField] private Transform otherCardSpawnPoint;
    [SerializeField] private Transform myCardLeft;
    [SerializeField] private Transform myCardRight;
    [SerializeField] private Transform otherCardLeft;
@@ -23,8 +25,9 @@ public class CardManager : MonoBehaviour
    
    private List<Item> itemBuffer;//카드 아이템을 임시로 저장하는데 사용 
    private Card selectCard;
-   private bool isMyCardDrag=false;
-   private bool onMyCardArea = false;
+   private bool isMyCardDrag;
+   private bool onMyCardArea;
+   private int myPutCount = 0;
 
    //마우스 상태
    enum ECardState
@@ -38,6 +41,7 @@ public class CardManager : MonoBehaviour
    {
       SetupItemBuffer();
       TurnManager.OnAddCard += AddCard;//OnAddCard 이벤트에 이벤트 핸들러(AddCard)를 추가
+      TurnManager.OnTurnStarted += OnTurnStarted;
    }
 
    private void Update()
@@ -48,16 +52,18 @@ public class CardManager : MonoBehaviour
       DetectCardArea();
       SetECardState();
    }
-
- 
-
-
+   
    private void OnDestroy()
    {
       TurnManager.OnAddCard -= AddCard;//OnAddCard 이벤트에 이벤트 핸들러(AddCard)를 제거
+      TurnManager.OnTurnStarted -= OnTurnStarted;
    }
 
-   
+   private void OnTurnStarted(bool _myTurn)
+   {
+      if (_myTurn)
+         myPutCount = 0;//entity놓은 수 초기화
+   }
 
    #endregion
 
@@ -186,12 +192,47 @@ public class CardManager : MonoBehaviour
       return results;
    }
 
+   //entity를 놓을 시
+   public bool TryPutCard(bool _isMine)
+   {
+      if (_isMine && myPutCount >= 1)//나의 entity이고 낸 카드가 1이상으면
+         return false;//더이상 카드를 내지 못함
+
+      if (!_isMine && otherCards.Count <= 0)//상대이고 상대방카드 리스트가 0이하이면
+         return false;//카드를 내지 못함
+
+      Card card = _isMine ? selectCard : otherCards[Random.Range(0,otherCards.Count)];//내 카드면 확대한 카드할당 상대면 랜덤으로 카드 할당
+      var spawnPos = _isMine ? Utils.MousePos : otherCardSpawnPoint.position;//내 카드면 마우스드레그 위치로
+      var targetCards = _isMine ? myCards : otherCards;
+
+      if (EntityManager.Inst.SpawnEntity(_isMine, card.item, spawnPos))
+      {
+         targetCards.Remove(card);//카드를 냈으니까 해당 리스트에서 지움
+         card.transform.DOKill();//Transform에 적용된 모든 DOTween 애니메이션을 즉시 중지
+         DestroyImmediate(card.gameObject);//즉시 해당 카드(프리팹)를 지움
+         if (_isMine)
+         {
+            selectCard = null;//다음 카드를 받을 준비를 해줌
+            myPutCount++;//카드를 냈다라는 것을 저장해줌
+         }
+         CardAlignment(_isMine);
+         return true;
+      }
+      else
+      {
+         targetCards.ForEach(x=>x.GetComponent<Order>().SetMostFrontOrder(false));//모두 원래 레이어로 설정
+         CardAlignment(_isMine);//정렬
+         return false;
+      }
+      
+   }
+
    #region MyCard
 
    public void CardMouseOver(Card _card)//마우스 올렸을 때
    {
-      if(eCardState == ECardState.Nothing)
-         return;
+      if(eCardState == ECardState.Nothing)//카드배분상태 시
+         return;//아무런 동작 안 함
       
       else
       {
@@ -209,8 +250,9 @@ public class CardManager : MonoBehaviour
    //마우스를 누르는 순간 드레그 가능
    public void CardMouseDown()
    {
-      if(eCardState != ECardState.CanMouseDrag)
+      if(eCardState != ECardState.CanMouseDrag)//내 턴이 아니면
          return;//아무런 동작도 하지않음
+      
 
       else
       {
@@ -224,16 +266,25 @@ public class CardManager : MonoBehaviour
    {
       isMyCardDrag = false;
       
-      if(eCardState != ECardState.CanMouseDrag)
+      if(eCardState != ECardState.CanMouseDrag)//내 턴이 아니면
          return;//아무런 동작도하지않음
-     
+
+      if (onMyCardArea) //마우스가 해당영역에 있으면
+         EntityManager.Inst.RemoveMyEmptyEntity(); //내 entity를 리스트에서 지움
+      else//마우스가 해당영역에 없으면
+         TryPutCard(true);
+
    }
    
    private void CardDrag()
    {
+      if(eCardState != ECardState.CanMouseDrag)//내 턴이 아니면
+         return;//아무런 동작도 하지않음
+      
       if (!onMyCardArea)//마우스가 해당 영역을 벗어나면
       {
          selectCard.MoveTransform(new PRS(Utils.MousePos,Utils.QI,selectCard.originPRS.scale),false);//해당 카드 위치설정:마우스위치, 회전:기본값, 크기는: 초기크기로
+         EntityManager.Inst.InsertMyEmptyEntity(Utils.MousePos.x);//마우스 위치를 전달
       }
    }
 
@@ -264,16 +315,16 @@ public class CardManager : MonoBehaviour
      
    }
    
-   //카드 드레그 및 올렸을 때 상태
+   //카드 드레그 및 올렸을 때 상태, update에서 계속 확인함
    private void SetECardState()
    {
-      if (TurnManager.Inst.isLoading)//게임시작상태
+      if (TurnManager.Inst.isLoading)//카드배분상태
          eCardState = ECardState.Nothing;//Nothing
       
-      else if (!TurnManager.Inst.myTurn)//상태턴일 때
+      else if (!TurnManager.Inst.myTurn||myPutCount==1||EntityManager.Inst.IsFullMyEntities)//상태턴 or entity를1개 놈 or entity가 다 차있을 때
          eCardState = ECardState.CanMouseOver;//CanMouseOver만
       
-      else if (TurnManager.Inst.myTurn)//내 턴 일때
+      else if (TurnManager.Inst.myTurn && myPutCount==0)//내 턴이고 entity를 놓지 않았을 때
          eCardState = ECardState.CanMouseDrag;//CanMouseDrag
    }
 
