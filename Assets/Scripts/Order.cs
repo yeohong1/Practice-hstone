@@ -23,7 +23,7 @@ public class Order : MonoBehaviour
 
    
     //카드 레이어 순서
-    private void SetOrder(int order)
+    public void SetOrder(int order)
     {
         int mulOrder = order * 10;//각 카드가 위로 올라가는 정렬 순서를 조절
 

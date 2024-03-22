@@ -5624,6 +5624,7 @@ MonoBehaviour:
   health: 0
   isMine: 0
   isBossOrEmpty: 0
+  attackable: 0
   originPos: {x: 0, y: 0, z: 0}
 --- !u!114 &9079246747392027418
 MonoBehaviour:

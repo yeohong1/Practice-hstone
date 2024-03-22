@@ -218,12 +218,11 @@ public class CardManager : MonoBehaviour
          CardAlignment(_isMine);
          return true;
       }
-      else
-      {
+     
          targetCards.ForEach(x=>x.GetComponent<Order>().SetMostFrontOrder(false));//모두 원래 레이어로 설정
          CardAlignment(_isMine);//정렬
          return false;
-      }
+      
       
    }
 
@@ -233,12 +232,10 @@ public class CardManager : MonoBehaviour
    {
       if(eCardState == ECardState.Nothing)//카드배분상태 시
          return;//아무런 동작 안 함
-      
-      else
-      {
+     
          selectCard = _card;//확대 한 카드를 할당
          EnlargeCard(true,_card);
-      }
+      
      
    }
 
@@ -253,11 +250,8 @@ public class CardManager : MonoBehaviour
       if(eCardState != ECardState.CanMouseDrag)//내 턴이 아니면
          return;//아무런 동작도 하지않음
       
-
-      else
-      {
          isMyCardDrag = true;
-      }
+      
      
    }
 

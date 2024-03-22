@@ -19,7 +19,9 @@ public class Entity : MonoBehaviour
     public int attack;
     public int health;
     public bool isMine;
+    public bool isDie;//죽음판단
     public bool isBossOrEmpty;
+    public bool attackable;//공격할 수 있는 상황인지
     public Vector3 originPos;//정렬을 위함
     private int liveCount;
 
@@ -60,6 +62,40 @@ public class Entity : MonoBehaviour
         nameTMP.text = this.item.name;
         attackTMP.text = attack.ToString();
         healthTMP.text = health.ToString();
+    }
+
+    private void OnMouseDown()
+    {
+        if(isMine)//나의 entity이면
+            EntityManager.Inst.EntityMouseDown(this);//자기 entity를 넘겨줌
+    }
+
+    private void OnMouseUp()
+    {
+        if(isMine)
+            EntityManager.Inst.EntityMouseup();
+    }
+
+    private void OnMouseDrag()
+    {
+        if(isMine)
+            EntityManager.Inst.EntityMouseDrag();
+    }
+
+    //체력계산
+    public bool Damaged(int damage)
+    {
+        health -= damage;//체력계산
+        healthTMP.text = health.ToString();//체력Text에 할당
+
+        if (health <= 0)//체력이 0이하면
+        {
+            isDie = true;//죽음표시
+            return true;
+
+        }
+
+        return false;//안 죽음
     }
 
     public void MoveTransform(Vector3 pos, bool useDotween, float dotweenTime = 0)
